@@ -1,0 +1,52 @@
+html , body{
+  height: 100vh;
+  width: 100vw;
+  background-color: #4791D2;
+}
+
+body{
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+.row {
+  margin-top: 10vh;
+}
+
+.panel {
+  padding: 50px;
+}
+
+.glyphicon {
+  font-size: 5em;
+  color: #6a90ff;
+}
+
+@media (min-width: 768px) {
+  .main-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .container {
+    width: 450px;
+  }
+}
+
+#upload-input{
+  display: none;
+}
+
+.upload-btn:hover,
+.upload-btn:focus,
+.upload-btn:active,
+.upload-btn.active {
+  color: #ffffff;
+  background-color: #FA8900;
+  border: none;
+}
+
+.hidden{
+  display: none;
+}
