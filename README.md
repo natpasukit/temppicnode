@@ -5,3 +5,6 @@ Temporary image serving with express
 npm install // To install module used
 node app.js // serving app at port 3000
 access the app
+
+# Live demo
+http://argteamwork.com:3000/
