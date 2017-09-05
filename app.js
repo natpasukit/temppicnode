@@ -5,6 +5,7 @@ const path = require('path');
 const formidable = require('formidable');
 const fs = require('fs');
 const cron = require('node-cron');
+const moment = require('moment');
 
 // Static and Routing
 app.use(express.static('public')); // serving css , js for html
@@ -34,13 +35,30 @@ app.post('/upload' , function(req, res){
 // Reading Directory every minutes
 cron.schedule('*/1 * * * *', function(err){
   if(!err){
-    console.log('Detect every minute');
     fs.readdir(__dirname + '/uploads', function(err,filenames){
       if(!err){
+        // Stamp current date
+        var currentDate = moment().format();
         filenames.forEach(function(filename){
           fs.stat(__dirname + '/uploads/' + filename,function(err,fstats){
-            console.log(filename);
-            console.log(fstats.ctime);
+            // Check ctime valid
+            if (moment(fstats.ctime).isValid()) {
+              // General time format
+              var fileDate = moment(fstats.ctime).format();
+              // compare then delete
+              var diffTime = moment(currentDate).diff(moment(fileDate),'minutes');
+              if(diffTime > 30 && filename != '.gitignore'){
+                fs.unlink(__dirname + '/uploads/' + filename, function(err){
+                  if(!err){
+                    console.log(filename + 'deleted');
+                  }else{
+                    console.log('unlink failed');
+                  }
+                });
+              }
+            } else {
+              console.log('Invalid Date');
+            }
           });
         });
       }else{
