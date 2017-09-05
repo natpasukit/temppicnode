@@ -6,6 +6,8 @@ const formidable = require('formidable');
 const fs = require('fs');
 const cron = require('node-cron');
 const moment = require('moment');
+const uuidv4 = require('uuid/v4');
+const mime = require('mime');
 
 // Static and Routing
 app.use(express.static('public')); // serving css , js for html
@@ -22,8 +24,9 @@ app.post('/upload' , function(req, res){
   form.uploadDir = __dirname + '/uploads';
   // Get file name link
   form.on('file', function(field, file) {
-    fs.rename(file.path, path.join(form.uploadDir, file.name));
-    response += file.name+' ';
+    var uuid = uuidv4();
+    fs.rename(file.path, path.join(form.uploadDir, uuid + file.name));
+    response += uuid+file.name+' ';
   });
   // response to client
   form.on('end', function() {

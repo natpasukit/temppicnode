@@ -11,7 +11,7 @@ $('#upload-input').on('change' , function(){
     var datafiles = new FormData();
     for (var i = 0; i < filesData.length; i++ ){
       var file = filesData[i];
-      datafiles.append('upload[]', file, file.name);
+      datafiles.append('upload[]', file, file.name.replace(/\s/g,''));
     }
     // Clear link list
     $('.uploadedFiles').addClass('hidden');
