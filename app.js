@@ -27,7 +27,7 @@ app.post('/upload' , function(req, res){
   });
   // response to client
   form.on('end', function() {
-   res.end(response);
+    res.end(response);
   });
   form.parse(req);
 });

@@ -13,6 +13,9 @@ $('#upload-input').on('change' , function(){
       var file = filesData[i];
       datafiles.append('upload[]', file, file.name);
     }
+    // Clear link list
+    $('.uploadedFiles').addClass('hidden');
+    $('.uploadedFiles').text('');
     // Ajax handler
     $.ajax({
       url: '../upload', // post to app.js
@@ -25,9 +28,8 @@ $('#upload-input').on('change' , function(){
           console.log('upload successful!');
           var dataArray = data.split(' ');
           for(var i = 0; i < dataArray.length-1 ; i++){
-            alert('http:localhost:3000/' + dataArray[i])
-          }
-          // console.log(dataArray);
+            $('<li><a href="'+dataArray[i]+'">'+dataArray[i]+'</a></li>').appendTo('.uploadedFiles');
+          }$('.uploadedFiles').removeClass('hidden');
       }
     });
     $('.filenum').removeClass('hidden');
